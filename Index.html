@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Terrains de Pétanque</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        #recherche, #geolocaliser {
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        #recherche {
+            width: calc(100% - 150px);
+        }
+        #geolocaliser {
+            width: 130px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #resultats {
+            margin-top: 20px;
+        }
+        .terrain {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .terrain h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        #rechercher {
+            padding: 10px 15px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #status {
+            margin-bottom: 15px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Terrains de Pétanque</h1>
+    
+    <div>
+        <input type="text" id="recherche" placeholder="Entrez le nom d'une ville">
+        <button id="rechercher">Rechercher</button>
+        <button id="geolocaliser" title="Géolocalisation">🌍 Près de moi</button>
+    </div>
+
+    <div id="status"></div>
+    <div id="resultats"></div>
+
+    <script>
+        // Base de données des terrains de pétanque avec coordonnées
+        const terrainsPetanque = {
+            paris: {
+                coords: [48.8566, 2.3522],
+                terrains: [
+                    { nom: "Jardin du Luxembourg", adresse: "6 Rue de Médicis, 75006 Paris", capacite: 12, coords: [48.8462, 2.3371] },
+                    { nom: "Parc des Buttes-Chaumont", adresse: "1 Rue Botzaris, 75019 Paris", capacite: 8, coords: [48.8794, 2.3829] }
+                ]
+            },
+            marseille: {
+                coords: [43.2965, 5.3698],
+                terrains: [
+                    { nom: "Parc Borély", adresse: "Avenue Pierre Mendès France, 13008 Marseille", capacite: 15, coords: [43.2677, 5.3769] },
+                    { nom: "Parc de la Corniche", adresse: "Corniche Kennedy, 13007 Marseille", capacite: 10, coords: [43.2702, 5.3670] }
+                ]
+            },
+            lyon: {
+                coords: [45.7640, 4.8357],
+                terrains: [
+                    { nom: "Parc de la Tête d'Or", adresse: "Rue Ney, 69006 Lyon", capacite: 20, coords: [45.7848, 4.8643] },
+                    { nom: "Parc Blandan", adresse: "43 Boulevard des Etats-Unis, 69008 Lyon", capacite: 6, coords: [45.7447, 4.8578] }
+                ]
+            },
+            toulouse: {
+                coords: [43.6047, 1.4442],
+                terrains: [
+                    { nom: "Prairie des Filtres", adresse: "Quai de la Daurade, 31000 Toulouse", capacite: 18, coords: [43.6012, 1.4367] },
+                    { nom: "Parc Raymond IV", adresse: "Place Raymond IV, 31000 Toulouse", capacite: 12, coords: [43.6040, 1.4500] }
+                ]
+            },
+            nice: {
+                coords: [43.7102, 7.2620],
+                terrains: [
+                    { nom: "Parc Phoenix", adresse: "405 Promenade des Anglais, 06200 Nice", capacite: 10, coords: [43.6885, 7.2394] },
+                    { nom: "Jardin Albert 1er", adresse: "Promenade des Anglais, 06000 Nice", capacite: 7, coords: [43.6956, 7.2620] }
+                ]
+            }
+        };
+
+        const rechercheInput = document.getElementById('recherche');
+        const rechercherBtn = document.getElementById('rechercher');
+        const geolocaliserBtn = document.getElementById('geolocaliser');
+        const resultatsDiv = document.getElementById('resultats');
+        const statusDiv = document.getElementById('status');
+
+        // Fonction pour normaliser le texte
+        function normaliserTexte(texte) {
+            return texte.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        }
+
+        // Fonction pour rechercher les terrains par ville
+        rechercherBtn.addEventListener('click', () => {
+            const ville = normaliserTexte(rechercheInput.value.trim());
+            resultatsDiv.innerHTML = '';
+            statusDiv.innerHTML = '';
+
+            if (ville in terrainsPetanque) {
+                const terrains = terrainsPetanque[ville].terrains;
+                terrains.forEach(terrain => {
+                    const terrainDiv = document.createElement('div');
+                    terrainDiv.classList.add('terrain');
+                    terrainDiv.innerHTML = `
+                        <h3>${terrain.nom}</h3>
+                        <p><strong>Adresse:</strong> ${terrain.adresse}</p>
+                        <p><strong>Capacité:</strong> ${terrain.capacite} joueurs</p>
+                    `;
+                    resultatsDiv.appendChild(terrainDiv);
+                });
+            } else {
+                resultatsDiv.innerHTML = `<p>Aucun terrain trouvé pour "${rechercheInput.value}".</p>`;
+            }
+        });
+
+        // Fonction pour afficher les terrains proches avec géolocalisation
+        geolocaliserBtn.addEventListener('click', () => {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const { latitude, longitude } = position.coords;
+                        statusDiv.innerHTML = "Position trouvée, recherche en cours...";
+                        // Récupération des terrains proches
+                    },
+                    (error) => {
+                        statusDiv.innerHTML = "Erreur lors de la géolocalisation.";
+                    }
+                );
+            } else {
+                statusDiv.innerHTML = "La géolocalisation n'est pas supportée par votre navigateur.";
+            }
+        });
+    </script>
+</body>
+</html>
