@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    var url = "https://www.openstreetmap.org/"
+    var uend = "#map=3/50.40/9.84"
+async function getData(url) {
+  try {
+    const response = await fetch(url, {
+  mode:  'cors',
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    key1: 'value1',
+    key2: 'value2'
+  })
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error(error));
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const json = await response.json();
+    console.log(json);
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+getData(url+uend)
+
+</script>
