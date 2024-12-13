@@ -86,9 +86,7 @@ h1 {
     color: white;
 }
 
-#rechercher:hover {
-    background-color: var(--primary-color);
-}
+
 
 #geolocaliser {
     background-color: #e9ecef;
@@ -150,6 +148,7 @@ button {
 #rechercher {
     --primary-color: #111;
     --hovered-color: #c84747;
+    
     position: relative;
     display: flex;
     font-weight: 600;
