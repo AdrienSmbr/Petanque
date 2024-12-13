@@ -1,26 +1,52 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
+
+<head>
     <meta charset="UTF-8">
     <title>Terrains de Pétanque</title>
     <link rel="stylesheet" href="style.css">
-
-    
 </head>
+
 <body>
     <h1>Terrains de Pétanque</h1>
-    
-    <div>
-        <input type="text" id="recherche" placeholder="Entrez le nom d'une ville">
-        <button id="rechercher">Rechercher</button>
-        <button id="geolocaliser" title="Géolocalisation">🌍 Près de moi</button>
+
+    <div class="recherche-container">
+        <div class="wave-group">
+            <input required="" type="text" id="recherche" class="input">
+            <span class="bar"></span>
+            <label class="label">
+                <span class="label-char" style="--index: 0">E</span>
+                <span class="label-char" style="--index: 1">n</span>
+                <span class="label-char" style="--index: 2">t</span>
+                <span class="label-char" style="--index: 3">r</span>
+                <span class="label-char" style="--index: 4">e</span>
+                <span class="label-char" style="--index: 5">r</span>
+                <span class="label-char" style="--index: 6">&nbsp</span>
+                <span class="label-char" style="--index: 7">u</span>
+                <span class="label-char" style="--index: 8">n</span>
+                <span class="label-char" style="--index: 9">e</span>
+                <span class="label-char" style="--index: 10">&nbsp</span>
+                <span class="label-char" style="--index: 11">v</span>
+                <span class="label-char" style="--index: 12">i</span>
+                <span class="label-char" style="--index: 13">l</span>
+                <span class="label-char" style="--index: 14">l</span>
+                <span class="label-char" style="--index: 15">e</span>
+            </label>
+        </div>
+        <button id="rechercher">
+            <p>Rechercher</p>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+        </button>
     </div>
+    <button id="geolocaliser" title="Géolocalisation">🌍 Près de moi</button>
 
     <div id="status"></div>
     <div id="resultats"></div>
 
     <script>
-        // Base de données des terrains de pétanque avec coordonnées
         const terrainsPetanque = {
             paris: {
                 coords: [48.8566, 2.3522],
@@ -29,34 +55,7 @@
                     { nom: "Parc des Buttes-Chaumont", adresse: "1 Rue Botzaris, 75019 Paris", capacite: 8, coords: [48.8794, 2.3829] }
                 ]
             },
-            marseille: {
-                coords: [43.2965, 5.3698],
-                terrains: [
-                    { nom: "Parc Borély", adresse: "Avenue Pierre Mendès France, 13008 Marseille", capacite: 15, coords: [43.2677, 5.3769] },
-                    { nom: "Parc de la Corniche", adresse: "Corniche Kennedy, 13007 Marseille", capacite: 10, coords: [43.2702, 5.3670] }
-                ]
-            },
-            lyon: {
-                coords: [45.7640, 4.8357],
-                terrains: [
-                    { nom: "Parc de la Tête d'Or", adresse: "Rue Ney, 69006 Lyon", capacite: 20, coords: [45.7848, 4.8643] },
-                    { nom: "Parc Blandan", adresse: "43 Boulevard des Etats-Unis, 69008 Lyon", capacite: 6, coords: [45.7447, 4.8578] }
-                ]
-            },
-            toulouse: {
-                coords: [43.6047, 1.4442],
-                terrains: [
-                    { nom: "Prairie des Filtres", adresse: "Quai de la Daurade, 31000 Toulouse", capacite: 18, coords: [43.6012, 1.4367] },
-                    { nom: "Parc Raymond IV", adresse: "Place Raymond IV, 31000 Toulouse", capacite: 12, coords: [43.6040, 1.4500] }
-                ]
-            },
-            nice: {
-                coords: [43.7102, 7.2620],
-                terrains: [
-                    { nom: "Parc Phoenix", adresse: "405 Promenade des Anglais, 06200 Nice", capacite: 10, coords: [43.6885, 7.2394] },
-                    { nom: "Jardin Albert 1er", adresse: "Promenade des Anglais, 06000 Nice", capacite: 7, coords: [43.6956, 7.2620] }
-                ]
-            }
+            // Ajoute les autres villes ici...
         };
 
         const rechercheInput = document.getElementById('recherche');
@@ -65,12 +64,10 @@
         const resultatsDiv = document.getElementById('resultats');
         const statusDiv = document.getElementById('status');
 
-        // Fonction pour normaliser le texte
         function normaliserTexte(texte) {
             return texte.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
         }
 
-        // Fonction pour rechercher les terrains par ville
         rechercherBtn.addEventListener('click', () => {
             const ville = normaliserTexte(rechercheInput.value.trim());
             resultatsDiv.innerHTML = '';
@@ -93,14 +90,13 @@
             }
         });
 
-        // Fonction pour afficher les terrains proches avec géolocalisation
         geolocaliserBtn.addEventListener('click', () => {
             if ("geolocation" in navigator) {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
                         const { latitude, longitude } = position.coords;
                         statusDiv.innerHTML = "Position trouvée, recherche en cours...";
-                        // Récupération des terrains proches
+                        console.log("Latitude :", latitude, "Longitude :", longitude);
                     },
                     (error) => {
                         statusDiv.innerHTML = "Erreur lors de la géolocalisation.";
@@ -112,4 +108,5 @@
         });
     </script>
 </body>
+
 </html>
