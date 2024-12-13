@@ -208,15 +208,18 @@
 
                         if (terrainProche) {
                             resultatsDiv.innerHTML = `
+                            <div class="terrain">
                         <h3>Terrain le plus proche</h3>
                         <p><strong>Nom:</strong> ${terrainProche.nom}</p>
                         <p><strong>Adresse:</strong> ${terrainProche.adresse}</p>
                         <p><strong>Capacité:</strong> ${terrainProche.capacite} joueurs</p>
                         <p><strong>Distance:</strong> ${terrainProche.distance.toFixed(2)} km</p>
-                    `;
+                    </div>
+                        `;
                         } else {
                             resultatsDiv.innerHTML = "<p>Aucun terrain trouvé à proximité.</p>";
                         }
+                        statusDiv.innerHTML = ''; // On vide l'animation une fois la recherche terminée
                     },
                     (error) => {
                         statusDiv.innerHTML = "Erreur lors de la géolocalisation.";
