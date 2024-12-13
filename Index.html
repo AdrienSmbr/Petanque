@@ -40,12 +40,12 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
         </button>
-    </div>
-   
-    <button id="geolocaliser" title="Géolocalisation">
-        <span>🌍 Près de moi</span>
-      </button>
 
+
+        <button id="geolocaliser" title="Géolocalisation">
+            <span>🌍 Près de moi</span>
+        </button>
+    </div>
     <div id="status"></div>
     <div id="resultats"></div>
 
@@ -98,7 +98,15 @@
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
                         const { latitude, longitude } = position.coords;
-                        statusDiv.innerHTML = "Position trouvée, recherche en cours...";
+                        resultatsDiv.innerHTML = ''; // Réinitialise les résultats
+                        statusDiv.innerHTML = `
+        <div class="newtons-cradle">
+            <div class="newtons-cradle__dot"></div>
+            <div class="newtons-cradle__dot"></div>
+            <div class="newtons-cradle__dot"></div>
+            <div class="newtons-cradle__dot"></div>
+        </div>
+    `; // Affiche l'animation
                         console.log("Latitude :", latitude, "Longitude :", longitude);
                     },
                     (error) => {
