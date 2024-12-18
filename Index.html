@@ -59,101 +59,35 @@
     </div>
 
     <script>
-        const terrainsPetanque = {
-            paris: {
-                coords: [48.8566, 2.3522],
-                terrains: [
-                    { nom: "Jardin du Luxembourg", adresse: "6 Rue de Médicis, 75006 Paris", capacite: 12, coords: [48.8462, 2.3371] },
-                    { nom: "Parc des Buttes-Chaumont", adresse: "1 Rue Botzaris, 75019 Paris", capacite: 8, coords: [48.8794, 2.3829] },
-                    { nom: "Esplanade des Invalides", adresse: "129 Rue de Grenelle, 75007 Paris", capacite: 10, coords: [48.8584, 2.3123] },
-                    { nom: "Parc Monceau", adresse: "35 Boulevard de Courcelles, 75008 Paris", capacite: 6, coords: [48.8798, 2.3092] }
-                ]
-            },
-            marseille: {
-                coords: [43.2965, 5.3698],
-                terrains: [
-                    { nom: "Parc Borély", adresse: "Avenue Pierre Mendès France, 13008 Marseille", capacite: 15, coords: [43.2677, 5.3769] },
-                    { nom: "Parc de la Corniche", adresse: "Corniche Kennedy, 13007 Marseille", capacite: 10, coords: [43.2702, 5.3670] },
-                    { nom: "Parc Longchamp", adresse: "Place Henri Dunant, 13004 Marseille", capacite: 12, coords: [43.3031, 5.3924] },
-                    { nom: "Parc Pastré", adresse: "157 Avenue de Montredon, 13008 Marseille", capacite: 8, coords: [43.2521, 5.3748] }
-                ]
-            },
-            lyon: {
-                coords: [45.7640, 4.8357],
-                terrains: [
-                    { nom: "Parc de la Tête d'Or", adresse: "Rue Ney, 69006 Lyon", capacite: 20, coords: [45.7848, 4.8643] },
-                    { nom: "Parc Blandan", adresse: "43 Boulevard des Etats-Unis, 69008 Lyon", capacite: 6, coords: [45.7447, 4.8578] },
-                    { nom: "Place Bellecour", adresse: "Place Bellecour, 69002 Lyon", capacite: 8, coords: [45.7578, 4.8328] },
-                    { nom: "Parc de Gerland", adresse: "24 Allée Pierre de Coubertin, 69007 Lyon", capacite: 12, coords: [45.7323, 4.8194] }
-                ]
-            },
-            toulouse: {
-                coords: [43.6047, 1.4442],
-                terrains: [
-                    { nom: "Prairie des Filtres", adresse: "Quai de la Daurade, 31000 Toulouse", capacite: 18, coords: [43.6012, 1.4367] },
-                    { nom: "Parc Raymond IV", adresse: "Place Raymond IV, 31000 Toulouse", capacite: 12, coords: [43.6040, 1.4500] },
-                    { nom: "Parc de Compans-Caffarelli", adresse: "Boulevard Lascrosses, 31000 Toulouse", capacite: 10, coords: [43.6117, 1.4331] },
-                    { nom: "Jardin des Plantes", adresse: "Allée Jules Guesde, 31400 Toulouse", capacite: 8, coords: [43.5944, 1.4540] }
-                ]
-            },
-            nice: {
-                coords: [43.7102, 7.2620],
-                terrains: [
-                    { nom: "Parc Phoenix", adresse: "405 Promenade des Anglais, 06200 Nice", capacite: 10, coords: [43.6885, 7.2394] },
-                    { nom: "Jardin Albert 1er", adresse: "Promenade des Anglais, 06000 Nice", capacite: 7, coords: [43.6956, 7.2620] },
-                    { nom: "Parc du Château", adresse: "Rue des Ponchettes, 06300 Nice", capacite: 6, coords: [43.6994, 7.2775] },
-                    { nom: "Parc Chambrun", adresse: "Boulevard de Cessole, 06100 Nice", capacite: 5, coords: [43.7265, 7.2619] }
-                ]
-            },
-            bordeaux: {
-                coords: [44.8378, -0.5792],
-                terrains: [
-                    { nom: "Parc Bordelais", adresse: "Rue du Bocage, 33200 Bordeaux", capacite: 15, coords: [44.8545, -0.5952] },
-                    { nom: "Jardin Public", adresse: "Cours de Verdun, 33000 Bordeaux", capacite: 10, coords: [44.8473, -0.5791] },
-                    { nom: "Parc de l'Ermitage", adresse: "Chemin de l'Ermitage, 33310 Lormont", capacite: 8, coords: [44.8656, -0.5204] },
-                    { nom: "Parc des Sports Saint-Michel", adresse: "Place Canteloup, 33000 Bordeaux", capacite: 12, coords: [44.8293, -0.5666] }
-                ]
-            },
-            nantes: {
-                coords: [47.2184, -1.5536],
-                terrains: [
-                    { nom: "Parc de Procé", adresse: "Rue des Dervallières, 44100 Nantes", capacite: 12, coords: [47.2221, -1.5806] },
-                    { nom: "Île de Versailles", adresse: "Quai de Versailles, 44000 Nantes", capacite: 6, coords: [47.2208, -1.5556] },
-                    { nom: "Parc du Grand Blottereau", adresse: "Boulevard Auguste-Peneau, 44300 Nantes", capacite: 10, coords: [47.2386, -1.5222] },
-                    { nom: "Square Elisa Mercoeur", adresse: "3 Rue de l'Évêque, 44000 Nantes", capacite: 5, coords: [47.2139, -1.5531] }
-                ]
-            },
-            bayonne: {
-                coords: [43.4926, -1.4730],
-                terrains: [
-                    { nom: "Parc des Sports", adresse: "Avenue Paul Pras, 64100 Bayonne", capacite: 12, coords: [43.4926, -1.4730] }
-                ]
-            },
-            biarritz: {
-                coords: [43.4833, -1.5623],
-                terrains: [
-                    { nom: "Place Bellevue", adresse: "Place Bellevue, 64200 Biarritz", capacite: 8, coords: [43.4833, -1.5623] }
-                ]
-            },
-            anglet: {
-                coords: [43.5056, -1.5238],
-                terrains: [
-                    { nom: "Square Marcel Hiribarren", adresse: "Boulevard des Plages, 64600 Anglet", capacite: 10, coords: [43.5056, -1.5238] }
-                ]
-            },
-            tarnos: {
-                coords: [43.5364, -1.4520],
-                terrains: [
-                    { nom: "Parc de Castillon", adresse: "Rue Albert Camus, 40220 Tarnos", capacite: 6, coords: [43.5364, -1.4520] }
-                ]
-            },
-            saintJeanDeLuz: {
-                coords: [43.3907, -1.6591],
-                terrains: [
-                    { nom: "Jardin Public", adresse: "Rue d'Espagne, 64500 Saint-Jean-de-Luz", capacite: 8, coords: [43.3907, -1.6591] }
-                ]
+        // Objet vide qui sera rempli avec les données JSON
+        let terrainsPetanque = {};
+
+        async function fetchTerrains() {
+            try {
+                const response = await fetch('./terrain_petanque_64.json');
+                if (!response.ok) {
+                    throw new Error('Erreur lors du chargement du fichier JSON');
+                }
+                const data = await response.json();
+                data.results.forEach(terrain => {
+                    const ville = normaliserTexte(terrain.inst_com_nom);
+                    if (!(ville in terrainsPetanque)) {
+                        terrainsPetanque[ville] = { coords: [terrain.coordonnees.lat, terrain.coordonnees.lon], terrains: [] };
+                    }
+                    terrainsPetanque[ville].terrains.push({
+                        nom: terrain.equip_nom,
+                        adresse: `${terrain.inst_adresse}, ${terrain.inst_cp} ${terrain.inst_com_nom}`,
+                        capacite: terrain.equip_piste_nb,
+                        coords: [terrain.coordonnees.lat, terrain.coordonnees.lon]
+                    });
+                });
+            } catch (error) {
+                console.error('Erreur:', error);
             }
-        };
+        }
+
+        // Charger les terrains depuis le JSON au chargement de la page
+        window.addEventListener('load', fetchTerrains);
 
         const rechercheInput = document.getElementById('recherche');
         const rechercherBtn = document.getElementById('rechercher');
@@ -166,26 +100,43 @@
         }
 
         rechercherBtn.addEventListener('click', () => {
-            const ville = normaliserTexte(rechercheInput.value.trim());
-            resultatsDiv.innerHTML = '';
-            statusDiv.innerHTML = '';
+        const ville = normaliserTexte(rechercheInput.value.trim());
+        resultatsDiv.innerHTML = '';
+        statusDiv.innerHTML = '';
 
-            if (ville in terrainsPetanque) {
-                const terrains = terrainsPetanque[ville].terrains;
-                terrains.forEach(terrain => {
-                    const terrainDiv = document.createElement('div');
-                    terrainDiv.classList.add('terrain');
-                    terrainDiv.innerHTML = `
-                        <h3>${terrain.nom}</h3>
-                        <p><strong>Adresse:</strong> ${terrain.adresse}</p>
-                        <p><strong>Capacité:</strong> ${terrain.capacite} joueurs</p>
-                    `;
-                    resultatsDiv.appendChild(terrainDiv);
-                });
-            } else {
-                resultatsDiv.innerHTML = `<p style="color: #ff4d4d; font-size: 16px; font-weight: bold; text-align: center; padding: 10px; background-color: #f8d7da; border-radius: 5px; border: 1px solid #f5c6cb; margin-top: 20px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">Aucun terrain trouvé pour "${rechercheInput.value}".</p>`;
-            }
-        });
+        if (ville in terrainsPetanque) {
+            const terrains = terrainsPetanque[ville].terrains;
+
+            // Si la ville a des coordonnées, calculons les distances
+            const coordsVille = terrainsPetanque[ville].coords;
+
+            // Trier les terrains par distance à la ville
+            const terrainsTries = terrains.map(terrain => {
+                const distance = calculerDistance(
+                    coordsVille[0],
+                    coordsVille[1],
+                    terrain.coords[0],
+                    terrain.coords[1]
+                );
+                return { ...terrain, distance };
+            }).sort((a, b) => a.distance - b.distance);
+
+            // Afficher les terrains triés
+            terrainsTries.forEach(terrain => {
+                const terrainDiv = document.createElement('div');
+                terrainDiv.classList.add('terrain');
+                terrainDiv.innerHTML = `
+                    <h3>${terrain.nom}</h3>
+                    <p><strong>Adresse:</strong> ${terrain.adresse}</p>
+                    <p><strong>Capacité:</strong> ${terrain.capacite} équipes</p>
+                    <p><strong>Distance:</strong> ${terrain.distance.toFixed(2)} km</p>
+                `;
+                resultatsDiv.appendChild(terrainDiv);
+            });
+        } else {
+            resultatsDiv.innerHTML = `<p style="color: #ff4d4d; font-size: 16px; font-weight: bold; text-align: center; padding: 10px; background-color: #f8d7da; border-radius: 5px; border: 1px solid #f5c6cb; margin-top: 20px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">Aucun terrain trouvé pour "${rechercheInput.value}".</p>`;
+        }
+    });
 
         geolocaliserBtn.addEventListener('click', () => {
             if ("geolocation" in navigator) {
