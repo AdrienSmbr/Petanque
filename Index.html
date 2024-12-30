@@ -57,6 +57,7 @@
             <div id="resultats" class="resultats"></div>
         </main>
     </div>
+
     <script>
         // Objet vide qui sera rempli avec les données JSON
         let terrainsPetanque = {};
@@ -70,13 +71,9 @@
                 const data = await response.json();
                 data.results.forEach(terrain => {
                     const ville = normaliserTexte(terrain.inst_com_nom);
-                    
                     if (!(ville in terrainsPetanque)) {
-                        terrainsPetanque[ville] = { 
-                            coords: [terrain.coordonnees.lat, terrain.coordonnees.lon],
-                            terrains: []
-                        }
-                    };
+                        terrainsPetanque[ville] = { coords: [terrain.coordonnees.lat, terrain.coordonnees.lon], terrains: [] };
+                    }
                     terrainsPetanque[ville].terrains.push({
                         nom: terrain.equip_nom,
                         adresse: `${terrain.inst_adresse}, ${terrain.inst_cp} ${terrain.inst_com_nom}`,
@@ -199,7 +196,6 @@
                 Math.sin(dLon / 2) * Math.sin(dLon / 2);
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             const distance = R * c; // Distance en km
-            console.log(`latitude 1 `);
             return enMetres ? distance * 1000 : distance;
         }
 
